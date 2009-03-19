@@ -9,6 +9,7 @@ Version: %{version}
 Release: %{release}
 Source0: %{base_name}-%{version}.tar.lzma
 Patch0:	 %{name}-reiser4-support.patch
+Patch1:	 %{name}-raid10-support.patch
 License: GPLv2+
 Group: Development/Other
 Url: http://wiki.mandriva.com/Tools/DrakX
@@ -48,6 +49,7 @@ This is the stage2 image for Mandriva DrakX installer modified for kernel-tmb.
 %prep
 %setup -q -n %{base_name}-%{version}
 %patch0 -p1 -b .reiser4
+%patch1 -p1 -b .raid10
 
 %build
 make -C tools
