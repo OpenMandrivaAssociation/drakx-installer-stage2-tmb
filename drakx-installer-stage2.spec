@@ -31,7 +31,7 @@ BuildRequires: drakx-installer-matchbox
 BuildRequires: e2fsprogs >= 1.41.3-3mnb
 BuildRequires: dosfstools 
 BuildRequires: task-x11 libx11-devel libxxf86misc-devel x11-driver-video-fbdev
-BuildRequires: setserial pciutils mt-st reiserfsprogs jfsutils
+BuildRequires: setserial pciutils mt-st reiserfsprogs jfsutils reiser4progs
 BuildRequires: xfsprogs pcmcia-cs gettext ash linuxwacom
 BuildRequires: fonts-ttf-bengali fonts-ttf-bitstream-vera fonts-ttf-lohit fonts-ttf-thai fonts-ttf-devanagari
 BuildRequires: fb2png ntfsprogs ia_ora-gnome brltty
