@@ -1,16 +1,17 @@
-%define name drakx-installer-stage2
+%define base_name drakx-installer-stage2
+%define name %{base_name}-tmb
 %define version 12.16
 %define release %mkrel 1
 
-Summary: DrakX installer stage2 image
+Summary: DrakX installer stage2 image modified for kernel-tmb
 Name: %{name}
 Version: %{version}
 Release: %{release}
-Source0: %{name}-%{version}.tar.lzma
+Source0: %{base_name}-%{version}.tar.lzma
 License: GPLv2+
 Group: Development/Other
 Url: http://wiki.mandriva.com/Tools/DrakX
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
+BuildRoot: %{_tmppath}/%{base_name}-%{version}-%{release}-buildroot
 
 BuildRequires: squashfs-tools >= 4.0
 BuildRequires: libx11-devel perl-devel libldetect-devel drakx-installer-binaries parted-devel
@@ -41,10 +42,10 @@ BuildRequires: perl-Gtk2-WebKit mandriva-doc-installer-help
 BuildRequires: nfs-utils-clients
 
 %description
-This is the stage2 image for Mandriva DrakX installer.
+This is the stage2 image for Mandriva DrakX installer modified for kernel-tmb.
 
 %prep
-%setup -q
+%setup -q -n %{base_name}-%{version}
 
 %build
 make -C tools
