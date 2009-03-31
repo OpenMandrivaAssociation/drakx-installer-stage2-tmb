@@ -1,7 +1,7 @@
 %define base_name drakx-installer-stage2
 %define name %{base_name}-tmb
-%define version 12.16
-%define release %mkrel 2
+%define version 12.21
+%define release %mkrel 1
 
 Summary: DrakX installer stage2 image modified for kernel-tmb
 Name: %{name}
@@ -10,6 +10,7 @@ Release: %{release}
 Source0: %{base_name}-%{version}.tar.lzma
 Patch0:	 %{name}-reiser4-support.patch
 Patch1:	 %{name}-raid10-support.patch
+Patch2:	 %{name}-list_modules.patch
 License: GPLv2+
 Group: Development/Other
 Url: http://wiki.mandriva.com/Tools/DrakX
@@ -50,6 +51,7 @@ This is the stage2 image for Mandriva DrakX installer modified for kernel-tmb.
 %setup -q -n %{base_name}-%{version}
 %patch0 -p1 -b .reiser4
 %patch1 -p1 -b .raid10
+%patch2 -p1 -b .list_modules
 
 %build
 make -C tools
