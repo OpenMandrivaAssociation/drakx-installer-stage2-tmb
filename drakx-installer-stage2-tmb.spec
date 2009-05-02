@@ -1,6 +1,6 @@
 %define base_name drakx-installer-stage2
 %define name %{base_name}-tmb
-%define version 12.28.1
+%define version 12.35
 %define release %mkrel 1
 
 Summary: DrakX installer stage2 image modified for kernel-tmb
@@ -11,7 +11,6 @@ Source0: %{base_name}-%{version}.tar.lzma
 Patch0:	 %{name}-reiser4-support.patch
 Patch1:	 %{name}-raid10-support.patch
 Patch2:	 %{name}-list_modules.patch
-Patch3:	 ntfs-3g.diff
 License: GPLv2+
 Group: Development/Other
 Url: http://wiki.mandriva.com/Tools/DrakX
@@ -22,13 +21,14 @@ BuildRequires: libx11-devel perl-devel libldetect-devel drakx-installer-binaries
 BuildRequires: perl-Gtk2 perl-Glib perl-XML-Parser perl-Curses perl-Curses-UI perl-Term-ReadKey
 BuildRequires: perl-Locale-gettext packdrake perl-Clone
 BuildRequires: drakx-net >= 0.73
-BuildRequires: drakx-kbd-mouse-x11 >= 0.69
+BuildRequires: drakx-kbd-mouse-x11 >= 0.73
 BuildRequires: rpm-mandriva-setup >= 1.48
 BuildRequires: perl-MDK-Common >= 1.2.12
 BuildRequires: urpmi >= 6.25
 BuildRequires: perl-URPM >= 3.26
+BuildRequires: perl_checker
 BuildRequires: meta-task
-BuildRequires: ldetect-lst >= 0.1.222
+BuildRequires: ldetect-lst >= 0.1.261
 BuildRequires: draksnapshot
 # progs
 BuildRequires: drakx-installer-matchbox
@@ -53,7 +53,6 @@ This is the stage2 image for Mandriva DrakX installer modified for kernel-tmb.
 %patch0 -p1 -b .reiser4
 %patch1 -p1 -b .raid10
 %patch2 -p1 -b .list_modules
-%patch3 -p1 -b .ntfs-3g
 
 %build
 make -C tools
@@ -67,6 +66,10 @@ dest=$RPM_BUILD_ROOT%{_libdir}/%name
 mkdir -p $dest
 make -C perl-install/install install ROOTDEST=$dest
 make -C tools install ROOTDEST=$dest
+
+%check
+cd perl-install
+%make check_perl_checker
 
 %clean
 rm -rf $RPM_BUILD_ROOT
