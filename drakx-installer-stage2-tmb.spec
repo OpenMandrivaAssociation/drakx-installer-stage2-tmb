@@ -1,7 +1,7 @@
 %define base_name drakx-installer-stage2
 %define name %{base_name}-tmb
 %define version 12.46
-%define release %mkrel 3
+%define release %mkrel 4
 
 Summary: DrakX installer stage2 image modified for kernel-tmb
 Name:	 %{name}
@@ -12,13 +12,14 @@ Patch0:	 %{name}-reiser4-support.patch
 Patch1:	 %{name}-raid10-support.patch
 Patch2:	 %{name}-dmraid45.patch
 Patch3:	 %{name}-kernels.patch
+Patch4:	 %{name}-binaries.patch
 License: GPLv2+
 Group: Development/Other
 Url: http://wiki.mandriva.com/Tools/DrakX
 BuildRoot: %{_tmppath}/%{base_name}-%{version}-%{release}-buildroot
 
 BuildRequires: squashfs-tools >= 4.0
-BuildRequires: libx11-devel perl-devel libldetect-devel drakx-installer-binaries parted-devel
+BuildRequires: libx11-devel perl-devel libldetect-devel drakx-installer-binaries-tmb parted-devel
 BuildRequires: perl-Gtk2 perl-Glib perl-XML-Parser perl-Curses perl-Curses-UI perl-Term-ReadKey
 BuildRequires: pixman-devel >= 0.15.18
 BuildRequires: perl-Locale-gettext packdrake perl-Clone
@@ -56,6 +57,7 @@ This is the stage2 image for Mandriva DrakX installer modified for kernel-tmb.
 %patch1 -p1 -b .raid10
 %patch2 -p1 -b .dmraid45
 %patch3 -p1 -b .kernels
+%patch4 -p1 -b .binaries
 
 %build
 make -C tools
