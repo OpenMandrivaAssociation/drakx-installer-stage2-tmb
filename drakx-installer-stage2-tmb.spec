@@ -1,6 +1,6 @@
 %define base_name drakx-installer-stage2
 %define name %{base_name}-tmb
-%define version 12.35
+%define version 12.46
 %define release %mkrel 1
 
 Summary: DrakX installer stage2 image modified for kernel-tmb
@@ -19,12 +19,13 @@ BuildRoot: %{_tmppath}/%{base_name}-%{version}-%{release}-buildroot
 BuildRequires: squashfs-tools >= 4.0
 BuildRequires: libx11-devel perl-devel libldetect-devel drakx-installer-binaries parted-devel
 BuildRequires: perl-Gtk2 perl-Glib perl-XML-Parser perl-Curses perl-Curses-UI perl-Term-ReadKey
+BuildRequires: pixman-devel >= 0.15.18
 BuildRequires: perl-Locale-gettext packdrake perl-Clone
 BuildRequires: drakx-net >= 0.73
 BuildRequires: drakx-kbd-mouse-x11 >= 0.73
 BuildRequires: rpm-mandriva-setup >= 1.48
 BuildRequires: perl-MDK-Common >= 1.2.12
-BuildRequires: urpmi >= 6.25
+BuildRequires: urpmi >= 6.27
 BuildRequires: perl-URPM >= 3.26
 BuildRequires: perl_checker
 BuildRequires: meta-task
@@ -32,7 +33,7 @@ BuildRequires: ldetect-lst >= 0.1.261
 BuildRequires: draksnapshot
 # progs
 BuildRequires: drakx-installer-matchbox
-BuildRequires: e2fsprogs >= 1.41.3-3mnb
+BuildRequires: e2fsprogs >= 1.41.6
 BuildRequires: dosfstools 
 BuildRequires: task-x11 libx11-devel libxxf86misc-devel x11-driver-video-fbdev x11-driver-input-vmmouse
 BuildRequires: setserial pciutils mt-st reiserfsprogs jfsutils reiser4progs
