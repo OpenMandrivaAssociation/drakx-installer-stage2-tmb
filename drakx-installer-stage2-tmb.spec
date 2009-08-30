@@ -1,7 +1,7 @@
 %define base_name drakx-installer-stage2
 %define name %{base_name}-tmb
 %define version 12.46
-%define release %mkrel 4
+%define release %mkrel 5
 
 Summary: DrakX installer stage2 image modified for kernel-tmb
 Name:	 %{name}
@@ -13,6 +13,7 @@ Patch1:	 %{name}-raid10-support.patch
 Patch2:	 %{name}-dmraid45.patch
 Patch3:	 %{name}-kernels.patch
 Patch4:	 %{name}-binaries.patch
+Patch5:	 %{name}-no32bit.patch
 License: GPLv2+
 Group: Development/Other
 Url: http://wiki.mandriva.com/Tools/DrakX
@@ -58,6 +59,7 @@ This is the stage2 image for Mandriva DrakX installer modified for kernel-tmb.
 %patch2 -p1 -b .dmraid45
 %patch3 -p1 -b .kernels
 %patch4 -p1 -b .binaries
+%patch5 -p1 -b .no32bit
 
 %build
 make -C tools
