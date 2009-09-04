@@ -1,7 +1,7 @@
 %define base_name drakx-installer-stage2
 %define name %{base_name}-tmb
-%define version 12.46
-%define release %mkrel 5
+%define version 12.47
+%define release %mkrel 1
 
 Summary: DrakX installer stage2 image modified for kernel-tmb
 Name:	 %{name}
@@ -24,7 +24,7 @@ BuildRequires: libx11-devel perl-devel libldetect-devel drakx-installer-binaries
 BuildRequires: perl-Gtk2 perl-Glib perl-XML-Parser perl-Curses perl-Curses-UI perl-Term-ReadKey
 BuildRequires: pixman-devel >= 0.15.18
 BuildRequires: perl-Locale-gettext packdrake perl-Clone
-BuildRequires: drakx-net >= 0.73
+BuildRequires: drakx-net >= 0.81.1
 BuildRequires: drakx-kbd-mouse-x11 >= 0.73
 BuildRequires: rpm-mandriva-setup >= 1.48
 BuildRequires: perl-MDK-Common >= 1.2.12
