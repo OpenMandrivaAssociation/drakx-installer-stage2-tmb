@@ -14,7 +14,8 @@ Patch2:	 %{name}-dmraid45.patch
 Patch3:	 %{name}-binaries.patch
 Patch4:	 %{name}-no32bit.patch
 Patch5:	 %{name}-rpmsrate.patch
-Patch6:	 %{name}-kernels.patch
+Patch6:	 %{name}-devel.patch
+Patch7:	 %{name}-kernels.patch
 License: GPLv2+
 Group: Development/Other
 Url: http://wiki.mandriva.com/Tools/DrakX
@@ -61,7 +62,8 @@ This is the stage2 image for Mandriva DrakX installer modified for kernel-tmb.
 %patch3 -p1 -b .binaries
 %patch4 -p1 -b .no32bit
 %patch5 -p1 -b .rpmsrate
-%patch6 -p1 -b .kernels
+%patch6 -p1 -b .devel
+%patch7 -p1 -b .kernels
 
 %build
 make -C tools
