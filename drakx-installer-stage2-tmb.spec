@@ -1,6 +1,6 @@
 %define base_name drakx-installer-stage2
 %define name %{base_name}-tmb
-%define version 12.48
+%define version 12.54
 %define release %mkrel 1
 
 Summary: DrakX installer stage2 image modified for kernel-tmb
@@ -34,7 +34,7 @@ BuildRequires: urpmi >= 6.27
 BuildRequires: perl-URPM >= 3.26
 BuildRequires: perl_checker
 BuildRequires: meta-task
-BuildRequires: ldetect-lst >= 0.1.261
+BuildRequires: ldetect-lst >= 0.1.272
 BuildRequires: draksnapshot
 # progs
 BuildRequires: drakx-installer-matchbox
