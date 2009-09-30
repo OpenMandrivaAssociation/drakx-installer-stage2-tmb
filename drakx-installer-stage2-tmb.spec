@@ -1,7 +1,7 @@
 %define base_name drakx-installer-stage2
 %define name %{base_name}-tmb
 %define version 12.54
-%define release %mkrel 2
+%define release %mkrel 3
 
 Summary: DrakX installer stage2 image modified for kernel-tmb
 Name:	 %{name}
@@ -16,13 +16,14 @@ Patch4:	 %{name}-no32bit.patch
 Patch5:	 %{name}-rpmsrate.patch
 Patch7:	 %{name}-kernel_flavor.patch
 Patch8:	 %{name}-kernels.patch
+Patch9:	 %{name}-sqfs.patch
 License: GPLv2+
 Group: Development/Other
 Url: http://wiki.mandriva.com/Tools/DrakX
 BuildRoot: %{_tmppath}/%{base_name}-%{version}-%{release}-buildroot
 
 BuildRequires: squashfs-tools >= 4.0
-BuildRequires: libx11-devel perl-devel libldetect-devel >= 0.9.1 drakx-installer-binaries-tmb parted-devel
+BuildRequires: libx11-devel perl-devel libldetect-devel >= 0.9.1 drakx-installer-binaries-tmb >= 1.42-2 parted-devel
 BuildRequires: perl-Gtk2 perl-Glib perl-XML-Parser perl-Curses perl-Curses-UI perl-Term-ReadKey
 BuildRequires: pixman-devel >= 0.15.18
 BuildRequires: perl-Locale-gettext packdrake perl-Clone
@@ -64,6 +65,7 @@ This is the stage2 image for Mandriva DrakX installer modified for kernel-tmb.
 %patch5 -p1 -b .rpmsrate
 %patch7 -p1 -b .kernel_flavor
 %patch8 -p1 -b .kernels
+%patch9 -p1 -b .tmbsqfs
 
 %build
 make -C tools
