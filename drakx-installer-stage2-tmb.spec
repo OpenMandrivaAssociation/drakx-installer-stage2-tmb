@@ -1,6 +1,6 @@
 %define base_name drakx-installer-stage2
 %define name %{base_name}-tmb
-%define version 12.61
+%define version 12.65
 %define release %mkrel 1
 
 Summary: DrakX installer stage2 image modified for kernel-tmb
@@ -23,7 +23,7 @@ Url: http://wiki.mandriva.com/Tools/DrakX
 BuildRoot: %{_tmppath}/%{base_name}-%{version}-%{release}-buildroot
 
 BuildRequires: squashfs-tools >= 4.0
-BuildRequires: libx11-devel perl-devel libldetect-devel >= 0.9.1 drakx-installer-binaries-tmb >= 1.42-2 parted-devel
+BuildRequires: libx11-devel perl-devel libldetect-devel >= 0.9.1 drakx-installer-binaries-tmb >= 1.42-3 parted-devel
 BuildRequires: perl-Gtk2 perl-Glib perl-XML-Parser perl-Curses perl-Curses-UI perl-Term-ReadKey
 BuildRequires: pixman-devel >= 0.15.18
 BuildRequires: perl-Locale-gettext packdrake perl-Clone
