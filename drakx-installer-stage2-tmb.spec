@@ -17,6 +17,7 @@ Patch5:	 %{name}-rpmsrate.patch
 Patch7:	 %{name}-kernel_flavor.patch
 Patch8:	 %{name}-kernels.patch
 Patch9:	 %{name}-sqfs.patch
+Patch10: %{name}-mdadm-meta-layout.patch
 License: GPLv2+
 Group: Development/Other
 Url: http://wiki.mandriva.com/Tools/DrakX
@@ -66,6 +67,7 @@ This is the stage2 image for Mandriva DrakX installer modified for kernel-tmb.
 %patch7 -p1 -b .kernel_flavor
 %patch8 -p1 -b .kernels
 %patch9 -p1 -b .tmbsqfs
+%patch10 -p1 -b .mdadm
 
 %build
 make -C tools
