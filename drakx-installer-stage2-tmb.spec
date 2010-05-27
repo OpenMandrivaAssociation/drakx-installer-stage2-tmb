@@ -1,6 +1,6 @@
 %define base_name drakx-installer-stage2
 %define name %{base_name}-tmb
-%define version 13.4
+%define version 13.30
 %define release %mkrel 1
 
 Summary: DrakX installer stage2 image modified for kernel-tmb
@@ -8,6 +8,7 @@ Name:	 %{name}
 Version: %{version}
 Release: %{release}
 Source0: %{base_name}-%{version}.tar.lzma
+Source1: lang-ast.png
 Patch0:	 %{name}-reiser4-support.patch
 Patch1:	 %{name}-raid10-support.patch
 Patch2:	 %{name}-dmraid45.patch
@@ -24,7 +25,7 @@ Url: http://wiki.mandriva.com/Tools/DrakX
 BuildRoot: %{_tmppath}/%{base_name}-%{version}-%{release}-buildroot
 
 BuildRequires: squashfs-tools >= 4.0
-BuildRequires: libx11-devel perl-devel libldetect-devel >= 0.9.1 drakx-installer-binaries-tmb >= 1.42-3 parted-devel
+BuildRequires: libx11-devel perl-devel libldetect-devel >= 0.9.1 drakx-installer-binaries-tmb >= 1.46-2 parted-devel
 BuildRequires: perl-Gtk2 perl-Glib perl-XML-Parser perl-Curses perl-Curses-UI perl-Term-ReadKey
 BuildRequires: pixman-devel >= 0.15.18
 BuildRequires: perl-Locale-gettext packdrake perl-Clone
@@ -43,6 +44,7 @@ BuildRequires: drakx-installer-matchbox
 BuildRequires: e2fsprogs >= 1.41.6
 BuildRequires: dosfstools mtools
 BuildRequires: task-x11 libx11-devel libxxf86misc-devel x11-driver-video-fbdev x11-driver-input-vmmouse
+BuildRequires: x11-data-xkbdata >= 1.8-2
 BuildRequires: setserial pciutils mt-st reiserfsprogs jfsutils reiser4progs
 BuildRequires: xfsprogs pcmcia-cs gettext ash linuxwacom
 BuildRequires: fonts-ttf-bengali fonts-ttf-bitstream-vera fonts-ttf-lohit fonts-ttf-thai fonts-ttf-devanagari
@@ -51,23 +53,15 @@ BuildRequires: lvm2 glibc-i18ndata
 BuildRequires: dmraid mdadm quota
 BuildRequires: losetup xmodmap xset monitor-edid locales
 BuildRequires: perl-Gtk2-WebKit mandriva-doc-installer-help
-BuildRequires: nfs-utils-clients ntfs-3g
+BuildRequires: nfs-utils-clients ntfs-3g btrfs-progs
 
 %description
 This is the stage2 image for Mandriva DrakX installer modified for kernel-tmb.
 
 %prep
 %setup -q -n %{base_name}-%{version}
-%patch0 -p1 -b .reiser4
-%patch1 -p1 -b .raid10
-%patch2 -p1 -b .dmraid45
-%patch3 -p1 -b .binaries
-%patch4 -p1 -b .no32bit
-%patch5 -p1 -b .rpmsrate
-%patch7 -p1 -b .kernel_flavor
-%patch8 -p1 -b .kernels
-%patch9 -p1 -b .tmbsqfs
-%patch10 -p1 -b .mdadm
+cp -a %{SOURCE1} perl-install/install/pixmaps/langs/
+%apply_patches
 
 %build
 make -C tools
