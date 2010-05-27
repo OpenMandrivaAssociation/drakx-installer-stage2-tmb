@@ -18,6 +18,7 @@ Patch7:	 %{name}-kernel_flavor.patch
 Patch8:	 %{name}-kernels.patch
 Patch9:	 %{name}-sqfs.patch
 Patch10: %{name}-mdadm-raid10-layout.patch
+Patch11: %{name}-nuke-xguest.patch
 License: GPLv2+
 Group: Development/Other
 Url: http://wiki.mandriva.com/Tools/DrakX
