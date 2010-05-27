@@ -17,7 +17,7 @@ Patch5:	 %{name}-rpmsrate.patch
 Patch7:	 %{name}-kernel_flavor.patch
 Patch8:	 %{name}-kernels.patch
 Patch9:	 %{name}-sqfs.patch
-Patch10: %{name}-mdadm-meta-layout.patch
+Patch10: %{name}-mdadm-raid10-layout.patch
 License: GPLv2+
 Group: Development/Other
 Url: http://wiki.mandriva.com/Tools/DrakX
