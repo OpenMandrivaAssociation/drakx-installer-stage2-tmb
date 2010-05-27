@@ -10,7 +10,6 @@ Release: %{release}
 Source0: %{base_name}-%{version}.tar.lzma
 Source1: lang-ast.png
 Patch0:	 %{name}-reiser4-support.patch
-Patch1:	 %{name}-raid10-support.patch
 Patch2:	 %{name}-dmraid45.patch
 Patch3:	 %{name}-binaries.patch
 Patch4:	 %{name}-no32bit.patch
