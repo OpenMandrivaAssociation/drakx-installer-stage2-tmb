@@ -1,6 +1,6 @@
 %define base_name drakx-installer-stage2
 %define name %{base_name}-tmb
-%define version 13.30
+%define version 13.31
 %define release %mkrel 1
 
 Summary: DrakX installer stage2 image modified for kernel-tmb
