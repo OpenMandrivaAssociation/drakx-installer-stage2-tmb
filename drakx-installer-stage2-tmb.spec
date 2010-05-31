@@ -12,7 +12,8 @@ Source1: lang-ast.png
 Patch0:	 %{name}-reiser4-support.patch
 Patch2:	 %{name}-dmraid45.patch
 Patch3:	 %{name}-binaries.patch
-Patch4:	 %{name}-no32bit.patch
+# disable for now ...
+#Patch4:	 %{name}-no32bit.patch
 Patch5:	 %{name}-rpmsrate.patch
 Patch7:	 %{name}-kernel_flavor.patch
 Patch8:	 %{name}-kernels.patch
@@ -25,7 +26,7 @@ Url: http://wiki.mandriva.com/Tools/DrakX
 BuildRoot: %{_tmppath}/%{base_name}-%{version}-%{release}-buildroot
 
 BuildRequires: squashfs-tools >= 4.0
-BuildRequires: libx11-devel perl-devel libldetect-devel >= 0.9.1 drakx-installer-binaries-tmb >= 1.46-2 parted-devel
+BuildRequires: libx11-devel perl-devel libldetect-devel >= 0.9.1 drakx-installer-binaries-tmb >= 1.46-3 parted-devel
 BuildRequires: perl-Gtk2 perl-Glib perl-XML-Parser perl-Curses perl-Curses-UI perl-Term-ReadKey
 BuildRequires: pixman-devel >= 0.15.18
 BuildRequires: perl-Locale-gettext packdrake perl-Clone
