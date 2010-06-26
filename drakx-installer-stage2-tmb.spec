@@ -1,6 +1,6 @@
 %define base_name drakx-installer-stage2
 %define name %{base_name}-tmb
-%define version 13.33
+%define version 13.35
 %define release %mkrel 1
 
 Summary: DrakX installer stage2 image modified for kernel-tmb
@@ -8,7 +8,6 @@ Name:	 %{name}
 Version: %{version}
 Release: %{release}
 Source0: %{base_name}-%{version}.tar.lzma
-Source1: lang-ast.png
 Patch0:	 %{name}-reiser4-support.patch
 Patch2:	 %{name}-dmraid45.patch
 Patch3:	 %{name}-binaries.patch
@@ -61,7 +60,6 @@ This is the stage2 image for Mandriva DrakX installer modified for kernel-tmb.
 
 %prep
 %setup -q -n %{base_name}-%{version}
-cp -a %{SOURCE1} perl-install/install/pixmaps/langs/
 %apply_patches
 
 %build
