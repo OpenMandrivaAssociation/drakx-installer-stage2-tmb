@@ -1,0 +1,25 @@
+diff -Nurp drakx-installer-stage2-13.30.orig2//kernel/list_modules.pm drakx-installer-stage2-13.30//kernel/list_modules.pm
+--- drakx-installer-stage2-13.30.orig2//kernel/list_modules.pm	2010-05-04 12:37:32.000000000 +0300
++++ drakx-installer-stage2-13.30//kernel/list_modules.pm	2010-05-27 23:07:25.370881362 +0300
+@@ -276,7 +276,8 @@ our %l = (
+   {
+     raid => [
+       qw(dm-crypt dm-mirror dm-mod dm-zero linear lvm-mod multipath raid0 raid1 raid10 raid456 raid5 raid6),
+-      qw(dm-delay dm-log dm-mem-cache dm-message dm-raid4-5 dm-region_hash faulty md-mod),
++      qw(dm-delay dm-log dm-memcache dm-message dm-raid45 dm-region-hash faulty md-mod),
++      qw(dm-emc dm-hp-sw dm-multipath dm-rdac dm-round-robin dm-snapshot),
+     ],
+     mouse => [
+       qw(atixlmouse busmouse generic_serial inport ioc3_serial logibm logibusmouse msbusmouse pcips2 qpmouse synclinkmp),
+diff -Nurp drakx-installer-stage2-13.30.orig2//perl-install/fs/dmraid.pm drakx-installer-stage2-13.30//perl-install/fs/dmraid.pm
+--- drakx-installer-stage2-13.30.orig2//perl-install/fs/dmraid.pm	2010-01-27 02:28:23.000000000 +0200
++++ drakx-installer-stage2-13.30//perl-install/fs/dmraid.pm	2010-05-27 23:07:25.370881362 +0300
+@@ -17,7 +17,7 @@ use run_program;
+ sub init() {
+     whereis_binary('dmraid') or die "dmraid not installed";
+ 
+-    eval { modules::load('dm-mirror', 'dm-zero') };
++    eval { modules::load('dm-mirror', 'dm-zero', 'dm-raid45') };
+     devices::init_device_mapper();
+     if ($::isInstall) {
+ 	call_dmraid('-ay');

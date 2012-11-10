@@ -1,0 +1,12 @@
+diff -Nurp drakx-installer-stage2-13.30.xguest//perl-install/install/share/meta-task/rpmsrate-raw drakx-installer-stage2-13.30//perl-install/install/share/meta-task/rpmsrate-raw
+--- drakx-installer-stage2-13.30.xguest//perl-install/install/share/meta-task/rpmsrate-raw	2010-05-27 23:13:40.000000000 +0300
++++ drakx-installer-stage2-13.30//perl-install/install/share/meta-task/rpmsrate-raw	2010-05-27 23:42:36.463918017 +0300
+@@ -578,7 +578,7 @@ CAT_BOOKS
+   4 mandriva-doc-Mastering-Manual-en mandriva-doc-Mastering-Manual-fr
+ 
+ CAT_X
+-  5 task-x11 xdm xorg-x11-75dpi-fonts urw-fonts x11-font-bh-type1 xguest
++  5 task-x11 xdm xorg-x11-75dpi-fonts urw-fonts x11-font-bh-type1
+   5 !CAT_KDE !CAT_GNOME !CAT_XFCE !CAT_LXDE xterm
+ 
+   5 gurpmi rpmdrake drakconf userdrake fonts-ttf-decoratives fonts-ttf-west_european

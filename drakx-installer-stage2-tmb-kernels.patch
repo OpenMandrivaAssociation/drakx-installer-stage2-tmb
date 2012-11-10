@@ -1,0 +1,12 @@
+diff -Nurp drakx-installer-stage2-13.30.orig7//perl-install/install/pkgs.pm drakx-installer-stage2-13.30//perl-install/install/pkgs.pm
+--- drakx-installer-stage2-13.30.orig7//perl-install/install/pkgs.pm	2010-05-27 23:15:36.000000000 +0300
++++ drakx-installer-stage2-13.30//perl-install/install/pkgs.pm	2010-05-27 23:16:52.519913579 +0300
+@@ -177,7 +177,7 @@ sub packageCallbackChoices {
+ sub _packageCallbackChoices_ {
+     my ($urpm, $choices, $virtual_pkg_name) = @_;
+ 
+-    my $kernel_flavor = 'kernel';
++    my $kernel_flavor = 'kernel-tmb';
+     my ($prefer, $_other) = urpm::select::get_preferred($urpm, $choices, $::o->{preferred_packages});
+     if (@$prefer) {
+ 	@$prefer;

@@ -1,0 +1,45 @@
+diff -Nurp drakx-installer-stage2-13.4-p9/perl-install/install/any.pm drakx-installer-stage2-13.4/perl-install/install/any.pm
+--- drakx-installer-stage2-13.4-p9/perl-install/install/any.pm	2009-09-03 17:05:46.000000000 +0300
++++ drakx-installer-stage2-13.4/perl-install/install/any.pm	2010-01-18 00:56:51.789722138 +0200
+@@ -1316,7 +1316,7 @@ sub move_compressed_image_to_disk {
+     our $compressed_image_on_disk;
+     return if $compressed_image_on_disk || $::local_install;
+ 
+-    my $name = 'mdkinst.sqfs';
++    my $name = 'tmbinst.sqfs';
+     my ($loop, $current_image) = devices::find_compressed_image($name) or return;
+     my $compressed_image_size = (-s $current_image) / 1024; #- put in KiB
+ 
+diff -Nurp drakx-installer-stage2-13.4-p9/tools/drakx-in-chroot drakx-installer-stage2-13.4/tools/drakx-in-chroot
+--- drakx-installer-stage2-13.4-p9/tools/drakx-in-chroot	2009-03-17 19:18:51.000000000 +0200
++++ drakx-installer-stage2-13.4/tools/drakx-in-chroot	2010-01-18 00:56:51.810222278 +0200
+@@ -12,7 +12,7 @@ my $STAGE2_LOCATION_ROOTED = '/tmp/stage
+ my $LOOP_MOUNT_POINT = "$SLASH_LOCATION/tmp/loop";
+ my $LIVE_LOCATION_REL = 'install/stage2/live/';
+ my $COMPRESSED_LOCATION_REL = 'install/stage2/';
+-my $COMPRESSED_FILE_REL = $COMPRESSED_LOCATION_REL . 'mdkinst.sqfs';
++my $COMPRESSED_FILE_REL = $COMPRESSED_LOCATION_REL . 'tmbinst.sqfs';
+ my $AUTO_INSTALL_ROOTED = '/tmp/auto_inst.cfg.pl';
+ my $DEFCFG_ROOTED = '/tmp/defcfg.pl';
+ my $RPMSRATE_ROOTED = '/tmp/rpmsrate';
+@@ -64,7 +64,7 @@ copy_auto_install_files();
+ 
+ my $remote_repository = $repository =~ m!^(ftp|http)://! && $1;
+ if ($remote_repository) {
+-    my $local_mdkinst = "$SLASH_LOCATION/tmp/mdkinst.sqfs";
++    my $local_mdkinst = "$SLASH_LOCATION/tmp/tmbinst.sqfs";
+     sys("curl --silent -o $local_mdkinst $repository/$COMPRESSED_FILE_REL");
+     mount_mdkinst($local_mdkinst);
+ } elsif (-d "$repository/$LIVE_LOCATION_REL") {
+diff -Nurp drakx-installer-stage2-13.4-p9/tools/mdkinst_stage2_tool drakx-installer-stage2-13.4/tools/mdkinst_stage2_tool
+--- drakx-installer-stage2-13.4-p9/tools/mdkinst_stage2_tool	2007-12-13 18:06:29.000000000 +0200
++++ drakx-installer-stage2-13.4/tools/mdkinst_stage2_tool	2010-01-18 00:56:51.814222627 +0200
+@@ -24,7 +24,7 @@ if [ "$1" = "--compress" -o "$1" == "--u
+ 	COMPRESSED_IMAGE=$1
+ 	shift
+     else
+-	COMPRESSED_IMAGE="$STAGE2_DIR/mdkinst.sqfs"
++	COMPRESSED_IMAGE="$STAGE2_DIR/tmbinst.sqfs"
+     fi
+ else
+     error

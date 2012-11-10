@@ -1,0 +1,117 @@
+diff -Nurp drakx-installer-stage2-13.33.orig//perl-install/diskdrake/hd_gtk.pm drakx-installer-stage2-13.33//perl-install/diskdrake/hd_gtk.pm
+--- drakx-installer-stage2-13.33.orig//perl-install/diskdrake/hd_gtk.pm	2010-06-03 14:51:31.000000000 +0300
++++ drakx-installer-stage2-13.33//perl-install/diskdrake/hd_gtk.pm	2010-06-16 22:44:38.386395591 +0300
+@@ -348,7 +348,7 @@ sub create_buttons4partitions {
+ 	if(isLUKS($entry) || isRawLUKS($entry)) {
+ 	    $w->set_image(gtknew("Image", file => "security-strong"));
+ 	}
+-	my @colorized_fs_types = qw(ext3 ext4 xfs swap vfat ntfs ntfs-3g);
++	my @colorized_fs_types = qw(ext3 ext4 xfs reiser4 swap vfat ntfs ntfs-3g);
+ 	$w->set_name("PART_" . (isEmpty($entry) ? 'empty' : 
+ 				$entry->{fs_type} && member($entry->{fs_type}, @colorized_fs_types) ? $entry->{fs_type} :
+ 				'other'));
+@@ -385,9 +385,9 @@ sub hd2kind {
+ }
+ 
+ sub filesystems_button_box() {
+-    my @types = (N_("Ext4"), N_("XFS"), N_("Swap"), arch() =~ /sparc/ ? N_("SunOS") : arch() eq "ppc" ? N_("HFS") : N_("Windows"),
++    my @types = (N_("Ext4"), N_("Reiser4"), N_("XFS"), N_("Swap"), arch() =~ /sparc/ ? N_("SunOS") : arch() eq "ppc" ? N_("HFS") : N_("Windows"),
+ 		 N_("Other"), N_("Empty"));
+-    my %name2fs_type = (Ext3 => 'ext3', Ext4 => 'ext4', 'XFS' => 'xfs', Swap => 'swap', Other => 'other', "Windows" => 'vfat', HFS => 'hfs');
++    my %name2fs_type = (Ext3 => 'ext3', Ext4 => 'ext4', 'Reiser4' => 'reiser4', 'XFS' => 'xfs', Swap => 'swap', Other => 'other', "Windows" => 'vfat', HFS => 'hfs');
+ 
+     gtkpack(Gtk2::HBox->new(), 
+ 	    map {
+diff -Nurp drakx-installer-stage2-13.33.orig//perl-install/diskdrake/interactive.pm drakx-installer-stage2-13.33//perl-install/diskdrake/interactive.pm
+--- drakx-installer-stage2-13.33.orig//perl-install/diskdrake/interactive.pm	2010-06-03 14:50:24.000000000 +0300
++++ drakx-installer-stage2-13.33//perl-install/diskdrake/interactive.pm	2010-06-16 22:44:38.386395591 +0300
+@@ -424,7 +424,7 @@ sub part_possible_actions {
+     my %macros = (
+ 	readonly => '$hd->{readonly}',
+         hasMntpoint => '$part->{mntpoint}',
+-	LVM_resizable => 'member($part->{fs_type}, qw(reiserfs xfs ext3 ext4 btrfs))',
++	LVM_resizable => 'member($part->{fs_type}, qw(reiserfs reiser4 xfs ext3 ext4 btrfs))',
+ 	canModifyRAID => 'isPartOfRAID($part) && !isMounted(fs::get::device2part($part->{raid}, $all_hds->{raids}))',
+     );
+     if (isEmpty($part)) {
+diff -Nurp drakx-installer-stage2-13.33.orig//perl-install/fs/mount.pm drakx-installer-stage2-13.33//perl-install/fs/mount.pm
+--- drakx-installer-stage2-13.33.orig//perl-install/fs/mount.pm	2010-04-12 19:40:47.000000000 +0300
++++ drakx-installer-stage2-13.33//perl-install/fs/mount.pm	2010-06-16 22:44:38.402431362 +0300
+@@ -35,7 +35,7 @@ sub mount {
+     $fs or log::l("not mounting $dev partition"), return;
+ 
+     {
+-	my @fs_modules = qw(btrfs ext3 ext4 hfs jfs nilfs2 nfs ntfs romfs reiserfs ufs xfs vfat);
++	my @fs_modules = qw(btrfs ext3 ext4 hfs jfs nilfs2 nfs ntfs romfs reiserfs reiser4 ufs xfs vfat);
+ 	my @types = (qw(ext2 proc sysfs usbfs usbdevfs iso9660 devfs devpts auto ntfs-3g), @fs_modules);
+ 
+ 	push @types, 'smb', 'cifs', 'davfs2' if !$::isInstall;
+diff -Nurp drakx-installer-stage2-13.33.orig//perl-install/fs/partitioning.pm drakx-installer-stage2-13.33//perl-install/fs/partitioning.pm
+--- drakx-installer-stage2-13.33.orig//perl-install/fs/partitioning.pm	2008-07-29 14:55:58.000000000 +0300
++++ drakx-installer-stage2-13.33//perl-install/fs/partitioning.pm	2010-06-16 22:44:38.403396329 +0300
+@@ -52,7 +52,7 @@ sub choose_partitions_to_format {
+ 	    ({
+ 	      text => partition_table::description($e), type => 'bool',
+ 	      val => \$e->{toFormatTmp}
+-	     }, if_(!isLoopback($_) && !member($_->{fs_type}, 'reiserfs', 'xfs', 'jfs'), {
++	     }, if_(!isLoopback($_) && !member($_->{fs_type}, 'reiserfs', 'reiser4', 'xfs', 'jfs'), {
+ 	      text => partition_table::description($e), type => 'bool', advanced => 1, 
+ 	      disabled => sub { !$e->{toFormatTmp} },
+ 	      val => \$e->{toFormatCheck}
+diff -Nurp drakx-installer-stage2-13.33.orig//perl-install/fs/type.pm drakx-installer-stage2-13.33//perl-install/fs/type.pm
+--- drakx-installer-stage2-13.33.orig//perl-install/fs/type.pm	2010-05-24 18:31:58.000000000 +0300
++++ drakx-installer-stage2-13.33//perl-install/fs/type.pm	2010-06-16 22:44:38.403396329 +0300
+@@ -24,6 +24,7 @@ my (%type_name2pt_type, %type_name2fs_ty
+   0x83 => 'ext3',     'Journalised FS: ext3',
+   0x83 => 'ext4',     'Journalised FS: ext4',
+   0x83 => 'reiserfs', 'Journalised FS: ReiserFS',
++  0x83 => 'reiser4',  'Journalised FS: Reiser4',
+ if_(arch() =~ /ppc|i.86|ia64|x86_64/, 
+   0x83 => 'xfs',      'Journalised FS: XFS',
+ ),
+@@ -120,7 +121,6 @@ if_(arch() !~ /ppc/,
+   0x80 => '',         'Old Minix',
+   0x81 => '',         'Minix / old Linux',
+  if_(!$::isInstall,
+-  0x83 => 'reiser4',  'Journalised FS: Reiser4',
+   0x83 => 'nilfs2',   'NILFS2',
+  ),
+   0x83 => 'btrfs',    'Btrfs',
+diff -Nurp drakx-installer-stage2-13.33.orig//perl-install/fsedit.pm drakx-installer-stage2-13.33//perl-install/fsedit.pm
+--- drakx-installer-stage2-13.33.orig//perl-install/fsedit.pm	2010-05-24 18:36:50.000000000 +0300
++++ drakx-installer-stage2-13.33//perl-install/fsedit.pm	2010-06-16 22:44:38.404395813 +0300
+@@ -474,9 +474,9 @@ You should create a /boot partition firs
+       if member($mntpoint, qw(/root));
+     die N("This directory should remain within the root filesystem")
+       if member($mntpoint, qw(/bin /dev /etc /lib /sbin /mnt /media));
+-    die N("You need a true filesystem (ext2/3/4, reiserfs, xfs, or jfs) for this mount point\n")
++    die N("You need a true filesystem (ext2/3/4, reiserfs, reiser4, xfs, or jfs) for this mount point\n")
+       if !isTrueLocalFS($part) && $mntpoint eq '/';
+-    die N("You need a true filesystem (ext2/3/4, reiserfs, xfs, or jfs) for this mount point\n")
++    die N("You need a true filesystem (ext2/3/4, reiserfs, reiser4, xfs, or jfs) for this mount point\n")
+       if !isTrueFS($part) && member($mntpoint, '/home', fs::type::directories_needed_to_boot());
+     die N("You can not use an encrypted file system for mount point %s", $mntpoint)
+       if $part->{options} =~ /encrypted/ && member($mntpoint, qw(/ /usr /var /boot));
+diff -Nurp drakx-installer-stage2-13.33.orig//perl-install/install/share/list.xml drakx-installer-stage2-13.33//perl-install/install/share/list.xml
+--- drakx-installer-stage2-13.33.orig//perl-install/install/share/list.xml	2010-05-04 16:32:18.000000000 +0300
++++ drakx-installer-stage2-13.33//perl-install/install/share/list.xml	2010-06-16 22:44:38.404395813 +0300
+@@ -24,6 +24,7 @@
+   mkfs.ext2 mkfs.ext3 mkfs.ext4 e2fsck tune2fs dumpe2fs resize2fs
+ 
+   mkfs.reiserfs resize_reiserfs reiserfstune
++  mkfs.reiser4 fsck.reiser4
+   mkfs.xfs xfs_admin
+ 
+   mkfs.btrfs btrfsctl
+diff -Nurp drakx-installer-stage2-13.33.orig//perl-install/share/diskdrake.rc drakx-installer-stage2-13.33//perl-install/share/diskdrake.rc
+--- drakx-installer-stage2-13.33.orig//perl-install/share/diskdrake.rc	2010-04-29 20:08:31.000000000 +0300
++++ drakx-installer-stage2-13.33//perl-install/share/diskdrake.rc	2010-06-16 22:44:38.405396678 +0300
+@@ -56,6 +56,8 @@ style "darkblue" = "font"
+ widget "*PART_ext2"	style "red" 
+ widget "*PART_ext3"	style "red" 
+ widget "*PART_ext4"	style "red" 
++widget "*PART_reiserfs"	style "yellow"
++widget "*PART_reiser4"	style "yellow"
+ widget "*PART_xfs"	style "orange" 
+ widget "*PART_swap"	style "green"
+ widget "*PART_vfat"	style "blue"

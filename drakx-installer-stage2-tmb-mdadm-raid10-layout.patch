@@ -1,0 +1,17 @@
+diff -Nurp drakx-installer-stage2-13.30.orig9//perl-install/raid.pm drakx-installer-stage2-13.30//perl-install/raid.pm
+--- drakx-installer-stage2-13.30.orig9//perl-install/raid.pm	2010-05-24 17:12:09.000000000 +0300
++++ drakx-installer-stage2-13.30//perl-install/raid.pm	2010-05-27 23:30:32.316850245 +0300
+@@ -134,11 +134,13 @@ sub make {
+ 
+     my $dev = devices::make($part->{device});
+     my $nb = @{$part->{disks}};
++    my $rl = @{$part->{level}};
+ 
+     run_program::run_or_die('mdadm', '--create', '--run', $dev, 
+ 			    if_($nb == 1, '--force'),
+ 			    '--chunk=' . $part->{'chunk-size'}, 
+ 			    "--level=$part->{level}", 
++			    if_($rl == 10, '--layout=f2'),
+ 			    "--raid-devices=$nb",
+ 			    if_($part->{'metadata'}, "--metadata=$part->{'metadata'}"),
+ 			    map { devices::make($_->{device}) } @{$part->{disks}});

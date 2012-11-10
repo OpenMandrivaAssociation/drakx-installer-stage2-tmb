@@ -1,0 +1,41 @@
+diff -Nurp drakx-installer-stage2-13.30.orig5//perl-install/install/share/meta-task/rpmsrate-raw drakx-installer-stage2-13.30//perl-install/install/share/meta-task/rpmsrate-raw
+--- drakx-installer-stage2-13.30.orig5//perl-install/install/share/meta-task/rpmsrate-raw	2010-05-26 12:24:45.000000000 +0300
++++ drakx-installer-stage2-13.30//perl-install/install/share/meta-task/rpmsrate-raw	2010-05-27 23:13:40.467913591 +0300
+@@ -501,7 +501,7 @@ CAT_DEVELOPMENT
+ 
+   4 rpm-build
+   3 rpmlint rpm-rebuilder
+-  3 kernel-source-latest
++  3 kernel-tmb-source-latest
+ 
+   2 gcc-gfortran nasm dev86 
+   1 gcc-objc
+@@ -518,7 +518,7 @@ CAT_DEVELOPMENT
+ 
+   CAT_BOOKS
+     5 qt4-examples qt4-doc
+-    2 pam-doc python-docs slang-doc kernel-doc nasm-doc ruby-doc lkmpg
++    2 pam-doc python-docs slang-doc kernel-tmb-doc nasm-doc ruby-doc lkmpg
+ 
+   CAT_KDE
+     5 kdevelop4
+@@ -678,7 +678,7 @@ CAT_SYSTEM
+   5 dmidecode
+ 
+   5 HIGH_SECURITY lads
+-  5 BIGMEM kernel-server-latest
++  5 BIGMEM kernel-tmb-server-latest
+   
+   5 PCMCIA pcmciautils
+ 
+@@ -814,8 +814,8 @@ LIVE
+ 
+ INSTALL
+   NOCOPY
+-    5 kernel-desktop-latest kernel-desktop586-latest kernel-server-latest
+-      mdadm lvm2 reiserfsprogs jfsutils xfsprogs quota dosfstools
++    5 kernel-tmb-desktop-latest kernel-tmb-desktop586-latest kernel-tmb-server-latest
++      mdadm lvm2 reiserfsprogs reiser4progs jfsutils xfsprogs quota dosfstools
+       alsa-utils aoss task-x11
+       ik8utils toshutils
+     5 task-printing-scanning

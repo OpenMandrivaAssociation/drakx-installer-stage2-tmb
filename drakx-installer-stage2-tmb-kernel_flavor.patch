@@ -1,0 +1,36 @@
+diff -Nurp drakx-installer-stage2-13.30.orig6//perl-install/install/pkgs.pm drakx-installer-stage2-13.30//perl-install/install/pkgs.pm
+--- drakx-installer-stage2-13.30.orig6//perl-install/install/pkgs.pm	2010-04-02 17:49:40.000000000 +0300
++++ drakx-installer-stage2-13.30//perl-install/install/pkgs.pm	2010-05-27 23:15:36.312881473 +0300
+@@ -177,26 +177,27 @@ sub packageCallbackChoices {
+ sub _packageCallbackChoices_ {
+     my ($urpm, $choices, $virtual_pkg_name) = @_;
+ 
++    my $kernel_flavor = 'kernel';
+     my ($prefer, $_other) = urpm::select::get_preferred($urpm, $choices, $::o->{preferred_packages});
+     if (@$prefer) {
+ 	@$prefer;
+     } elsif ($virtual_pkg_name eq 'kernel') {
+-	my $re = join('|', map { "kernel\Q$_-2" } _bestKernel_extensions());
++	my $re = join('|', map { "$kernel_flavor\Q$_-2" } _bestKernel_extensions());
+ 	my @l = grep { $_->name =~ $re } @$choices;
+ 	log::l("packageCallbackChoices: kernel chosen ", join(",", map { $_->name } @l), " in ", join(",", map { $_->name } @$choices));
+ 	@l;
+-    } elsif ($choices->[0]->name =~ /^kernel-(.*source-|.*-devel-)/) {
++    } elsif ($choices->[0]->name =~ /^$kernel_flavor-(.*source-|.*-devel-)/) {
+ 	my @l = grep {
+-	    if ($_->name =~ /^kernel-.*source-stripped-(.*)/) {
++	    if ($_->name =~ /^$kernel_flavor-.*source-stripped-(.*)/) {
+ 		my $version = quotemeta($1);
+ 		find {
+ 		    $_->name =~ /-$version$/ && ($_->flag_installed || $_->flag_selected);
+ 		} $urpm->packages_providing('kernel');
+-	    } elsif ($_->name =~ /(kernel-.*)-devel-(.*)/) {
++	    } elsif ($_->name =~ /($kernel_flavor-.*)-devel-(.*)/) {
+ 		my $kernel = "$1-$2";
+ 		my $p = packageByName($urpm, $kernel);
+ 		$p && ($p->flag_installed || $p->flag_selected);
+-	    } elsif ($_->name =~ /^kernel-.*source-/) {
++	    } elsif ($_->name =~ /^$kernel_flavor-.*source-/) {
+ 		#- hopefully we don't have a media with kernel-source but not kernel-source-stripped nor kernel-.*-devel
+ 		0;
+ 	    } else {
