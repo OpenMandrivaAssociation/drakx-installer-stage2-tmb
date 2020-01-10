@@ -60,7 +60,7 @@ This is the stage2 image for Mandriva DrakX installer modified for kernel-tmb.
 
 %prep
 %setup -q -n %{base_name}-%{version}
-%apply_patches
+%autopatch -p1
 
 %build
 make -C tools
