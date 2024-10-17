@@ -21,7 +21,7 @@ Patch10: %{name}-mdadm-raid10-layout.patch
 Patch11: %{name}-nuke-xguest.patch
 License: GPLv2+
 Group: Development/Other
-Url: http://wiki.mandriva.com/Tools/DrakX
+Url: https://wiki.mandriva.com/Tools/DrakX
 BuildRoot: %{_tmppath}/%{base_name}-%{version}-%{release}-buildroot
 
 BuildRequires: squashfs-tools >= 4.0
